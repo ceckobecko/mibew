@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+    mibew-dev:
+        image: mibew:latest
+        container_name: mibew-dev
+        volumes:
+            - "./src/release/mibew:/var/www/html"
+        ports:
+            - "10090:80"
+        networks:
+            - mibew-network
+    mibew-database-dev:
+        image: mariadb
+        container_name: mibew-database-dev
+        ports:
+            - "10046:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: mibew
+            MYSQL_PASSWORD: mibew
+            MYSQL_DATABASE: mibew
+        networks:
+            - mibew-network
+networks:
+    mibew-network:
+        driver: bridge
+        name: mibew-network
